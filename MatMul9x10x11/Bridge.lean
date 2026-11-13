@@ -32,7 +32,7 @@ theorem range_ok : rangeOk 9 10 11 terms = true := by decide +kernel
 
 theorem bound_ok : boundOk 56 (dU * dV * dW) terms = true := by decide +kernel
 
-theorem terms_length : terms.length = 642 := by decide +kernel
+theorem terms_length : terms.length = 640 := by decide +kernel
 
 /-- The integer identity of the scheme. -/
 theorem int_identity : ∀ a < 9, ∀ b < 10, ∀ c < 10, ∀ d < 11, ∀ e < 9, ∀ f < 11,
@@ -54,15 +54,15 @@ theorem sum_map_eq_sum_range {α : Type*} (g : α → ℤ) (z : α) : ∀ l : Li
   | cons x l ih => rw [List.map_cons, List.sum_cons, ih, List.length_cons, sum_range_succ']; simp [add_comm]
 
 /-- The first factors, over ℚ. -/
-noncomputable def u (i : Fin 642) : Matrix (Fin 9) (Fin 10) ℚ :=
+noncomputable def u (i : Fin 640) : Matrix (Fin 9) (Fin 10) ℚ :=
   fun a b => (cu (term i) (a * 10 + b) : ℚ) / dU
 
 /-- The second factors, over ℚ. -/
-noncomputable def v (i : Fin 642) : Matrix (Fin 10) (Fin 11) ℚ :=
+noncomputable def v (i : Fin 640) : Matrix (Fin 10) (Fin 11) ℚ :=
   fun c d => (cv (term i) (c * 11 + d) : ℚ) / dV
 
 /-- The third factors, over ℚ. -/
-noncomputable def w (i : Fin 642) : Matrix (Fin 9) (Fin 11) ℚ :=
+noncomputable def w (i : Fin 640) : Matrix (Fin 9) (Fin 11) ℚ :=
   fun e f => (cw (term i) (e * 11 + f) : ℚ) / dW
 
 /-- **The tensor decomposition.** -/
@@ -89,7 +89,7 @@ theorem bilinear (K : Type*) [Field K] [CharZero K] (A : Matrix (Fin 9) (Fin 10)
   ext e f
   rw [Matrix.mul_apply, Matrix.sum_apply]
   simp only [Matrix.smul_apply, Matrix.map_apply, smul_eq_mul]
-  have key : ∀ i : Fin 642, (∑ a, ∑ b, (u i a b : K) * A a b) * (∑ c, ∑ d, (v i c d : K) * B c d) *
+  have key : ∀ i : Fin 640, (∑ a, ∑ b, (u i a b : K) * A a b) * (∑ c, ∑ d, (v i c d : K) * B c d) *
       (w i e f : K) = ∑ a, ∑ b, ∑ c, ∑ d, A a b * B c d * ((u i a b * v i c d * w i e f : ℚ) : K) := by
     intro i
     simp only [sum_mul]
@@ -97,7 +97,7 @@ theorem bilinear (K : Type*) [Field K] [CharZero K] (A : Matrix (Fin 9) (Fin 10)
     refine sum_congr rfl fun a _ => sum_congr rfl fun b _ => sum_congr rfl fun c _ =>
       sum_congr rfl fun d _ => by ring
   rw [sum_congr rfl fun i _ => key i]
-  have swap : ∀ F : Fin 642 → Fin 9 → Fin 10 → Fin 10 → Fin 11 → K,
+  have swap : ∀ F : Fin 640 → Fin 9 → Fin 10 → Fin 10 → Fin 11 → K,
       ∑ i, ∑ a, ∑ b, ∑ c, ∑ d, F i a b c d = ∑ a, ∑ b, ∑ c, ∑ d, ∑ i, F i a b c d := by
     intro F
     rw [sum_comm]; refine sum_congr rfl fun a _ => ?_

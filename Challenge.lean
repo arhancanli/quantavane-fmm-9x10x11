@@ -6,7 +6,7 @@ public import Mathlib.Data.Rat.Cast.CharZero
 @[expose] public section
 
 /-!
-# Multiplying a `9 × 10` matrix by a `10 × 11` matrix with 642 multiplications: the statement
+# Multiplying a `9 × 10` matrix by a `10 × 11` matrix with 640 multiplications: the statement
 
 This file is the statement of record. It imports only Mathlib and states the results with `sorry`.
 `Solution.lean` proves them; `comparator.json` names the compared theorems. No definitions of our
@@ -33,9 +33,9 @@ are collected in the catalogue of fast matrix multiplication algorithms of the U
 
 ## The results
 
-* `exists_tensor_decomposition`: 642 triples of rational matrices decompose `⟨9, 10, 11⟩`. Hence
-  `R(⟨9, 10, 11⟩) ≤ 642` over ℚ (the schoolbook method uses 990 products).
-* `exists_bilinear_algorithm`: 642 triples of rational matrices form a bilinear algorithm for the
+* `exists_tensor_decomposition`: 640 triples of rational matrices decompose `⟨9, 10, 11⟩`. Hence
+  `R(⟨9, 10, 11⟩) ≤ 640` over ℚ (the schoolbook method uses 990 products).
+* `exists_bilinear_algorithm`: 640 triples of rational matrices form a bilinear algorithm for the
   product of `9 × 10` by `10 × 11` matrices over every field of characteristic zero.
 
 Before this scheme the smallest rank listed in the Lille catalogue for the format `9 × 10 × 11` was
@@ -44,18 +44,18 @@ Before this scheme the smallest rank listed in the Lille catalogue for the forma
 
 namespace MatMul9x10x11
 
-/-- **A rank-642 decomposition of the matrix multiplication tensor `⟨9, 10, 11⟩` over ℚ.** -/
+/-- **A rank-640 decomposition of the matrix multiplication tensor `⟨9, 10, 11⟩` over ℚ.** -/
 theorem exists_tensor_decomposition :
-    ∃ (u : Fin 642 → Matrix (Fin 9) (Fin 10) ℚ) (v : Fin 642 → Matrix (Fin 10) (Fin 11) ℚ)
-      (w : Fin 642 → Matrix (Fin 9) (Fin 11) ℚ),
+    ∃ (u : Fin 640 → Matrix (Fin 9) (Fin 10) ℚ) (v : Fin 640 → Matrix (Fin 10) (Fin 11) ℚ)
+      (w : Fin 640 → Matrix (Fin 9) (Fin 11) ℚ),
       ∀ a b c d e f, ∑ i, u i a b * v i c d * w i e f = if b = c ∧ a = e ∧ d = f then 1 else 0 := by
   sorry
 
-/-- **A bilinear algorithm with 642 multiplications for `9 × 10` by `10 × 11` matrices.** Its
+/-- **A bilinear algorithm with 640 multiplications for `9 × 10` by `10 × 11` matrices.** Its
 coefficients are rational, and it computes the product over every field of characteristic zero. -/
 theorem exists_bilinear_algorithm :
-    ∃ (u : Fin 642 → Matrix (Fin 9) (Fin 10) ℚ) (v : Fin 642 → Matrix (Fin 10) (Fin 11) ℚ)
-      (w : Fin 642 → Matrix (Fin 9) (Fin 11) ℚ),
+    ∃ (u : Fin 640 → Matrix (Fin 9) (Fin 10) ℚ) (v : Fin 640 → Matrix (Fin 10) (Fin 11) ℚ)
+      (w : Fin 640 → Matrix (Fin 9) (Fin 11) ℚ),
       ∀ (K : Type*) [Field K] [CharZero K] (A : Matrix (Fin 9) (Fin 10) K)
         (B : Matrix (Fin 10) (Fin 11) K),
         A * B = ∑ i, ((∑ a, ∑ b, (u i a b : K) * A a b) * (∑ c, ∑ d, (v i c d : K) * B c d)) •
